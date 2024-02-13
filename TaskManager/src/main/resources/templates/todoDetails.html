@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:insert="~{headFragment :: head-fragment}"></div>
+    <title>Task Details</title>
+</head>
+<body>
+    <div th:insert="~{bodyFragment :: body-fragment}"></div>
+
+    <h1 class="header" th:text="${todo.get().title}">Title</h1>
+
+       <div class="task-details">
+
+           <b class="b">Description:</b>
+                <span th:text="${todo.get().description}">Description</span><br>
+
+           <b class="b">Assignees:</b>
+           <span th:if="${!todo.get().getAssignees().isEmpty()}" th:each="assignee, iterStat : ${todo.get().getAssignees()}"
+                 th:text="${assignee.username + (iterStat.last ? '' : ', ')}">
+           </span>
+           <span th:if="${todo.get().getAssignees().isEmpty()}">None</span><br>
+
+           <b class="b">Deadline:</b>
+           <span th:text="${#temporals.format(todo.get().deadline, 'dd.MM.yyyy')}">Deadline</span><br>
+
+           <b class="b">Urgent:</b>
+                <span class="no" th:if="${todo.get().urgent}" th:text="'Yes'"></span>
+                <span class="yes" th:unless="${todo.get().urgent}" th:text="'No'"></span><br>
+
+           <b class="b">Completed:</b>
+               <span class="yes" th:if="${todo.get().done}" th:text="'✓'"></span>
+               <span class="no" th:unless="${todo.get().done}" th:text="'✗'"></span><br>
+
+           <b class="b">Creation Date:</b>
+                <span th:text="${#temporals.format(todo.get().creationDate, 'dd.MM.yyyy')}">Creation Date</span><br>
+
+
+       </div>
+    <a th:href="@{/todo/edit/{id}(id=${todo.get().id})}" class="edit-button"><i class="fas fa-edit" ></i>Edit Task</a>
+
+    <a th:href="@{/todo/delete/{id}(id=${todo.get().getId()})}" class="delete-button"><i class="fas fa-trash-alt"></i> Delete Task</a>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{headFragment :: head-fragment}"></div>
+    <title>Home</title>
+</head>
+<body>
+    <div th:insert="~{bodyFragment :: body-fragment}"></div>
+    <div class="header">
+        <h1>Today's To-do list</h1>
+        <a href="/todo/add" class="add-task"><span class="plus-sign">+</span> Create New Task</a>
+    </div>
+    <div>
+        <table class="todo-table">
+            <tr>
+                <th>Title</th>
+                <th>Assignee</th>
+                <th>Urgent</th>
+                <th>Done</th>
+                <th>Created</th>
+                <th>Deadline</th>
+            </tr>
+            <tr th:each="todo : ${todos}">
+                <td>
+                    <a class="task-title-link" th:text="${todo.getTitle()}" th:href="@{/todo/details/{id}(id=${todo.getId()})}"></a>
+                </td>
+                <td>
+                    <span th:if="${todo.assignees.isEmpty()}" th:text="None"></span>
+                    <span th:each="assignee, iterStat : ${todo.assignees}"
+                          th:unless="${todo.assignees.isEmpty()}"
+                          th:text="${assignee.username + (iterStat.last ? '' : ', ')}"></span>
+                </td>
+                <td class="no" th:if="${todo.urgent}" th:text="'Yes'"></td>
+                <td class="yes" th:unless="${todo.urgent}" th:text="'No'"></td>
+                <td class="yes" th:if="${todo.done}" th:text="'✓'"></td>
+                <td class="no" th:unless="${todo.done}" th:text="'✗'"></td>
+                <td th:text="${#temporals.format(todo.creationDate, 'dd.MM.')}"></td>
+                <td th:text="${#temporals.format(todo.deadline, 'dd.MM.')}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

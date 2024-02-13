@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:insert="~{headFragment :: head-fragment}"></div>
+    <title>Edit Task</title>
+</head>
+<body>
+    <div th:insert="~{bodyFragment :: body-fragment}"></div>
+    <h1 class="header">Edit Task</h1>
+    <form class="form" th:action="@{/todo/updateTask/{id}(id=${todo.get().getId()})}" method="post">
+        <input type="hidden" name="id" th:value="${todo.get().id}">
+
+        <div class="form-group">
+        <label for="title">Title: </label>
+        <input type="text" name="title" id="title"  th:value="${todo.get().title}" required  oninvalid="this.setCustomValidity('Please enter the title')"
+               oninput="this.setCustomValidity('')">
+        </div>
+
+        <div class="form-group">
+        <label for="description-form">Description: </label>
+        <input type="text" name="description" id="description-form" th:value="${todo.get().description}" size="20" required
+                  oninvalid="this.setCustomValidity('Please enter the description')"
+                  oninput="this.setCustomValidity('')">
+        </div>
+
+        <div class="form-group">
+            <label>Assignees: </label>
+            <div class="assignee-list">
+                <div th:each="assignee : ${todo.get().getAssignees()}" th:unless="${#lists.isEmpty(todo.get().getAssignees())}" class="assignee-item">
+                    <input type="checkbox" th:id="'assignee' + ${assignee.id}" th:name="assigneeIds" th:value="${assignee.id}"
+                           th:checked="${#lists.contains(todo.get().getAssignees(), assignee)}">
+                    <label class="assignee-name" th:for="'assignee' + ${assignee.id}" th:text="${assignee.username}"></label>
+                </div>
+                <div th:if="${#lists.isEmpty(todo.get().getAssignees())}">
+                    None
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group3">
+            <label for="newAssignee">New Assignee: </label>
+            <input type="text" id="newAssignee" name="newAssignee" placeholder="Assignee1, Assignee2, ">
+        </div>
+        <br>
+
+        <div class="form-group">
+        <label for="urgent">Urgent: </label>
+        <input   type="checkbox" name="urgent" id="urgent" th:checked="${todo.get().urgent}">
+        </div>
+
+        <div class="form-group">
+        <label for="done">Done: </label>
+        <input type="checkbox" name="done" id="done" th:checked="${todo.get().done}">
+        </div>
+
+        <div class="form-group">
+        <label for="deadline">Deadline: </label>
+        <input type="date" id="deadline" name="deadline" th:value="${#temporals.format(todo.get().deadline, 'yyyy-MM-dd')}" required oninvalid="this.setCustomValidity('Please enter the deadline')"
+               oninput="this.setCustomValidity('')">
+        </div>
+        <button type="submit" class="submit">
+            <span class="plus-sign">+</span> Update Task
+        </button>
+    </form>
+</body>
+</html>
