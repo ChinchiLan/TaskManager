@@ -9,8 +9,12 @@ This Task Manager application is a personal project designed to enhance my codin
 ## Features
 
 - **Task Management**: Users can create, view, update, and delete tasks
+  ![Alt text](screenshots/taskManagement.png)
+
 - **Task Details**: Each task can have a title, description, assignee, urgency, completion, due date, and assignees.
+  ![Alt text](screenshots/taskDetails.png)
 - **Assignee Management**: Add, edit, and delete assignees for each task.
+  ![Alt text](screenshots/assigneeManagement.png)
 - **Filtering and Sorting** (to be implemented): Tasks can be sorted by dates, urgency, completion status, and more.
 
 ## Technical Details
