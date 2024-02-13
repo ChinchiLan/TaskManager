@@ -144,7 +144,6 @@ public class TodoServiceImpl implements TodoService{
         }
         return assignees;
     }
-    // Other methods omitted for brevity
 
     /**
      * Retrieves a list of todo tasks that are marked as done and converts them into DTOs.
