@@ -10,11 +10,11 @@ This Task Manager application is a personal project designed to enhance my codin
 
 - **Task Management**: Users can create, view, update, and delete tasks
 
-  <img src="Screenshots/taskManagement.png" alt="Task Management" width="500"/>
+  <img src="Screenshots/taskManagement.png" alt="Task Management" width="600"/>
 
 - **Task Details**: Each task can have a title, description, assignee, urgency, completion, due date, and assignees.
 
-  <img src="Screenshots/taskDetails.png" alt="Task Details" width="500"/>
+  <img src="Screenshots/taskDetails.png" alt="Task Details" width="600"/>
 
 - **Assignee Management**: Add, edit, and delete assignees for each task.
 
